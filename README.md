@@ -1,114 +1,114 @@
-# Sign-Language-Interpreter-using-Deep-Learning
-Here’s a GitHub README.md draft for your project:
+# Real-Time Sign Language Recognition using Mediapipe and LSTMs
 
-Real-Time Sign Language Recognition using Mediapipe and LSTMs
-This project implements a sign language recognition system using Mediapipe, TensorFlow/Keras, and OpenCV. It enables you to collect sign language data, train a deep learning model, and predict gestures in real time through your webcam.
+This project implements a **sign language recognition system** using **Mediapipe**, **TensorFlow/Keras**, and **OpenCV**. It enables you to **collect gesture data**, **train a deep learning model**, and **predict signs in real time** through your webcam.  
 
-The system supports both Mediapipe Holistic (pose+hands+face) and Mediapipe Hands (hands only) pipelines, with additional angle-based features to improve recognition performance.
+The system supports both **Mediapipe Holistic (pose + hands + face)** and **Mediapipe Hands (hands only)** modes.
 
-Features
-Collects sign language data with real-time webcam capture.
+---
 
-Uses LSTM-based deep neural networks for sequential modeling of gestures.
+## Features
+- Collects sign language data using webcam  
+- Sequential modeling of gestures with **LSTMs**  
+- Three operating modes:
+  - `collect` → Gather training data  
+  - `train` → Train an action recognition model  
+  - `predict` → Perform real-time sign predictions  
+- Stores dataset automatically in structured folders  
+- Uses **angles of joints** for improved performance  
 
-Supports multiple operating modes:
+---
 
-collect – Record gesture data for training.
-
-train – Train a model using collected data.
-
-predict – Perform real-time sign prediction from webcam.
-
-Saves dataset automatically in structured folders.
-
-Includes data augmentation with hand joint angles.
-
-Configurable for different gestures (actions list).
-
-Requirements
-Install the required libraries before running:
-
-bash
+## Requirements
+Install required dependencies:
 pip install opencv-python mediapipe tensorflow scikit-learn numpy
-Usage
-Modify the configuration section in the script to select your mode of operation:
 
-python
-MODE = "collect"   # "collect", "train", or "predict"
-MP_MODE = "hands"  # "hands" or "holistic"
-1. Data Collection
-Run in collect mode to build a dataset:
-
-bash
-python main.py
-Press keys during collection:
-
-Space → Pause/Resume
-
-n → Skip to next sequence
-
-s → Skip to next action
-
-q → Quit
-
-Captured data will be saved in MP_Data/<action>/<sequence>/<frame>.npy.
-
-2. Training
-Run in train mode to train the LSTM model:
-
-bash
-python main.py
-The trained model will be saved as action.h5.
-
-Training includes early stopping and learning rate scheduling.
-
-3. Prediction
-Run in predict mode to perform real-time recognition:
-
-bash
-python main.py
-Prompts will appear to perform actions.
-
-Predictions will be displayed live and logged in a list.
-
-Project Structure
 text
-├── main.py              # Main script (collection, training, prediction)
-├── MP_Data/             # Generated dataset directory
-├── action.h5            # Trained model (saved after training)
-├── Logs/                # TensorBoard training logs
-How It Works
-Mediapipe extracts landmarks from hands, pose, and face.
 
-Keypoints & angles form the feature vector per frame.
+---
 
-Sequences of feature vectors (~30 frames) represent one gesture.
+## Usage
 
-An LSTM model learns temporal dependencies between frames.
+Set mode in the script before running:
+MODE = "collect" # "collect", "train", or "predict"
+MP_MODE = "hands" # "hands" or "holistic"
 
-Model predicts actions in real-time with softmax probabilities.
+text
 
-Adding New Gestures
-Update the actions array in the code:
+### 1. Data Collection
+Collect gesture data for each action:
+python main.py
 
-python
+text
+Controls:
+- **Space** → Pause/Resume  
+- **n** → Next sequence  
+- **s** → Skip to next action  
+- **q** → Quit  
+
+Data is saved in:
+MP_Data/<action>/<sequence>/<frame>.npy
+
+text
+
+### 2. Train the Model
+Train the LSTM model:
+python main.py
+
+text
+- Trained model is saved as **`action.h5`**
+- TensorBoard logs saved in `Logs/`
+
+### 3. Predict in Real-Time
+Predict signs live from webcam:
+python main.py
+
+text
+- Displays predictions on screen  
+- Saves all predictions to a list  
+
+---
+
+## Project Structure
+├── main.py # Main script for all modes
+├── MP_Data/ # Collected dataset
+├── action.h5 # Saved trained model
+├── Logs/ # TensorBoard logs
+
+text
+
+---
+
+## How It Works
+1. **Mediapipe** extracts landmarks from hands, pose, and face  
+2. **Keypoints & angles** used as feature vectors per frame  
+3. **Sequences of 30 frames** represent one gesture  
+4. **LSTM neural network** learns temporal dependencies  
+5. Predictions made in real-time  
+
+---
+
+## Customize Your Gestures
+Modify the `actions` list in the config section:
 actions = np.array(['hello', 'indian', 'again', 'sign', 'man', 'woman'])
-Collect new data with MODE="collect".
 
-Retrain the model with MODE="train".
+text
 
-Future Improvements
-Add more sign classes for a larger vocabulary.
+To add new gestures:
+1. Add names to `actions` list  
+2. Collect new data (`MODE="collect"`)  
+3. Retrain the model (`MODE="train"`)  
 
-Improve accuracy with attention-based models.
+---
 
-Export trained model to TensorFlow Lite for mobile deployment.
+## Future Improvements
+- Expand vocabulary of signs  
+- Use attention-based deep learning models  
+- Export as **TensorFlow Lite** for mobile use  
+- Add **Text-to-Speech** for accessibility  
 
-Integrate with text-to-speech for accessibility tools.
+---
 
-Acknowledgements
-Mediapipe by Google for fast landmark detection.
-
-TensorFlow/Keras for model development.
-
-OpenCV for real-time video processing.
+## Acknowledgements
+- [Mediapipe](https://github.com/google/mediapipe) – Landmark detection  
+- [TensorFlow/Keras](https://www.tensorflow.org/) – Deep learning framework  
+- [OpenCV](https://opencv.org/) – Real-time video processing  
