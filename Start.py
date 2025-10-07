@@ -16,7 +16,9 @@ import time
 # ================================ CONFIGURATION ================================
 MODE = "predict"  # "collect", "train", or "predict"
 MP_MODE = "hands" # "hands" or "holistic"
-actions = np.array(['hello', 'indian', 'again','sign','man','woman'])
+actions = np.array(
+    ['hello', 'indian', 'again', 'sign', 'man', 'woman', 'you', 'hearing', 'teacher', 'thank you', 'welcome',
+     'sorry','practice', 'good', 'bad','thin'])
 no_sequences = 60
 sequence_length = 30
 DATA_PATH = os.path.join('MP_Data')
